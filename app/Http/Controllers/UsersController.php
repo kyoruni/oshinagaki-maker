@@ -22,7 +22,8 @@ class UsersController extends Controller
     // ユーザ情報変更
     public function update(Request $request, $id)
     {
-        $user = User::find($id);
+        $user    = User::find($id);
+        $message = '';
 
         if (\Auth::id() == $user->id) {
             $user->email = $request->email;
