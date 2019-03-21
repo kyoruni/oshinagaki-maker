@@ -10,10 +10,12 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+/*
 Route::get('/', function () {
     return view('welcome');
 });
+*/
+Route::get('/', 'ImagesController@index');
 
 // ユーザ登録
 Route::get ('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup.get');
@@ -24,9 +26,12 @@ Route::get ('login',  'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login',  'Auth\LoginController@login')->name('login.post');
 Route::get ('logout', 'Auth\LoginController@logout')->name('logout.get');
 
-// ユーザ機能
+
 Route::group(['middleware' => ['auth']], function () {
-//  Route::resource('users', 'UsersController', ['only' => ['index', 'update', 'destroy']]);
+    // ユーザ機能
     Route::get ('users/{id}/setting',  'UsersController@show')->name('user.setting');
     Route::put ('users/{id}/setting',  'UsersController@update')->name('user.update');
+
+    // 画像機能
+    Route::resource('images', 'ImagesController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]);
 });
