@@ -4,11 +4,12 @@
     @if (Auth::check())
         <aside class="col-sm-4">
             {{ Auth::user()->name }}
-            {!! link_to_route('user.setting', '個人設定', ['id' => Auth::id()]) !!}
+            {!! link_to_route('user.setting',  '個人設定', ['id' => Auth::id()], ['class' => 'btn btn-sm btn-light']) !!}
+            {!! link_to_route('image.upload',  '画像登録', [],                   ['class' => 'btn btn-sm btn-light']) !!}
         </aside>
         <div class="col-sm-8">
             @if (count($images) > 0)
-                @include('images.images', ['images' => $images])
+                @include('image.images', ['images' => $images])
             @endif
         </div>
     @else
