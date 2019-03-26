@@ -6,7 +6,6 @@
                     <p>タイトル：{!! $image->title !!}</p>
                     <p>価格：{!! $image->price !!}</p>
                     <p>コメント：{!! $image->comment !!}</p>
-                    <p>パス：{!! $image->path !!}</p>
             </div>
         </li>
     @endforeach

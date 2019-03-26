@@ -55,14 +55,35 @@ class ImagesController extends Controller
 
         // 登録
         $request->user()->images()->create([
-            'path' => $path,
-            'title' => $title,
-            'price' => $price,
+            'path'    => $path,
+            'title'   => $title,
+            'price'   => $price,
             'comment' => $comment,
         ]);
 
         $message = '登録が完了しました。';
 
-        return redirect('/')->with('flash_message', $message);;
+        return redirect('/')->with('flash_message', $message);
+    }
+
+    // 画像情報削除
+    public function destroy($id)
+    {
+        $message = '';
+        $image    = Image::find($id);
+
+        // 削除対象のファイルパスを取得
+        $filepath = public_path() . '/' . $image->path;
+
+        // 削除対象のファイルが存在したら削除
+        
+            if (\Auth::id() === $image->user_id) {
+                $image->delete();
+                if (\File::exists($filepath)){
+                    \File::delete($filepath);
+                }
+                $message = 'ファイルを削除しました。';
+        }
+        return redirect('/')->with('flash_message', $message);
     }
 }
