@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Image;
 
+use App\Http\Requests\ImageRequest;
+
 class ImagesController extends Controller
 {
     // 画像一覧(ログイン後トップページ)
@@ -37,8 +39,12 @@ class ImagesController extends Controller
     }
 
     // 画像登録
-    public function store(Request $request)
+    public function store(ImageRequest $request)
     {
+        // 新規登録時は画像ファイル必須
+        $this->validate($request, [
+            'photo' => 'required',]);
+
         $file  = $request->file('photo');
 
         // アップロードするファイルの拡張子を取得
@@ -74,7 +80,7 @@ class ImagesController extends Controller
     }
 
     // 画像情報変更処理
-    public function update(Request $request, $id)
+    public function update(ImageRequest $request, $id)
     {
         $image          = Image::find($id);
         $image->title   = $request->title;

@@ -103,6 +103,9 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'photo' => [
+            'required' => 'ファイルが選択されていません。',
+        ],
     ],
 
     /*
