@@ -66,6 +66,50 @@ class ImagesController extends Controller
         return redirect('/')->with('flash_message', $message);
     }
 
+    // 画像情報変更画面
+    public function edit($id)
+    {
+        $image = Image::find($id);
+        return view('image.edit', ['image' => $image,]);
+    }
+
+    // 画像情報変更処理
+    public function update(Request $request, $id)
+    {
+        $image          = Image::find($id);
+        $image->title   = $request->title;
+        $image->price   = $request->price;
+        $image->comment = $request->comment;
+
+        if ($request->hasFile('photo')){
+            // 登録されているファイルを削除するため、対象のファイルパスを取得
+            $filepath = public_path() . '/' . $image->path;
+
+            // 削除対象のファイルが存在したら削除
+            if (\Auth::id() === $image->user_id) {
+                if (\File::exists($filepath)){
+                    \File::delete($filepath);
+                }
+            }
+
+            // アップロードされたファイルを取得
+            $file  = $request->file('photo');
+
+            // アップロードされたファイルの拡張子を取得
+            $ext = $request->file('photo')->getClientOriginalExtension();
+
+            // ランダム文字列でファイル名を作成
+            $filename = uniqid() . ".$ext";
+
+            // ファイル登録
+            $path        = "images/" . $file->storeAs('', $filename);
+            $image->path = $path;
+        }
+        $message = '登録が完了しました。';
+        $image->save();
+        return back()->with('flash_message', $message);
+    }
+
     // 画像情報削除
     public function destroy($id)
     {
@@ -76,13 +120,12 @@ class ImagesController extends Controller
         $filepath = public_path() . '/' . $image->path;
 
         // 削除対象のファイルが存在したら削除
-        
-            if (\Auth::id() === $image->user_id) {
-                $image->delete();
-                if (\File::exists($filepath)){
-                    \File::delete($filepath);
-                }
-                $message = 'ファイルを削除しました。';
+        if (\Auth::id() === $image->user_id) {
+            $image->delete();
+            if (\File::exists($filepath)){
+                \File::delete($filepath);
+            }
+            $message = 'ファイルを削除しました。';
         }
         return redirect('/')->with('flash_message', $message);
     }

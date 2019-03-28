@@ -33,6 +33,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put ('users/{id}/setting',  'UsersController@update')->name('user.update');
 
     // 画像機能
-    Route::resource('image', 'ImagesController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]);
+    Route::resource('image', 'ImagesController', ['only' => ['index', 'show', 'store', 'edit', 'update', 'destroy']]);
     Route::get('upload', 'ImagesController@create')->name('image.upload');
 });

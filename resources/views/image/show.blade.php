@@ -14,6 +14,8 @@
             {!! Form::model($image, ['route' => ['image.destroy', $image->id], 'method' => 'delete']) !!}
                 {!! Form::submit('削除', ['class' => 'btn btn-danger mb-4', 'onclick' => 'return delete_message();']) !!}
             {!! Form::close() !!}
+
+            {!! link_to_route('image.edit', '画像情報変更', ['id' => $image->id], ['class' => 'btn btn-danger mb-4']) !!}
         </div>
     </div>
 @endsection
