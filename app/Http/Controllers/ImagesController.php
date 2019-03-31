@@ -64,7 +64,6 @@ class ImagesController extends Controller
         ]);
 
         $message = '登録が完了しました。';
-
         return redirect('/')->with('flash_message', $message);
     }
 
@@ -100,6 +99,7 @@ class ImagesController extends Controller
             // ファイル登録処理
             $image->path = $this->registerimage($file);
         }
+
         $message = '登録が完了しました。';
         $image->save();
         return back()->with('flash_message', $message);
@@ -108,20 +108,24 @@ class ImagesController extends Controller
     // 画像情報削除
     public function destroy($id)
     {
-        $message = '';
+        $message  = '';
         $image    = Image::find($id);
+
+        // 削除しようとしている画像の登録ユーザーと、ログインユーザーが違う場合、ここで処理終了
+        if (\Auth::id() !== $image->user_id) {
+            $message = '削除はできませんでした。';
+            return back()->withErrors($message);
+        }
 
         // 削除対象のファイルパスを取得
         $filepath = public_path() . '/' . $image->path;
 
         // 削除対象のファイルが存在したら削除
-        if (\Auth::id() === $image->user_id) {
-            $image->delete();
-            if (\File::exists($filepath)){
-                \File::delete($filepath);
-            }
-            $message = 'ファイルを削除しました。';
+        $image->delete();
+        if (\File::exists($filepath)){
+            \File::delete($filepath);
         }
+        $message = 'ファイルを削除しました。';
         return redirect('/')->with('flash_message', $message);
     }
 
