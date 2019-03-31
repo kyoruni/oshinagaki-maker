@@ -47,17 +47,13 @@ class ImagesController extends Controller
 
         $file  = $request->file('photo');
 
-        // アップロードするファイルの拡張子を取得
-        $ext = $request->file('photo')->getClientOriginalExtension();
-
-        // ランダム文字列でファイル名を作成
-        $filename = uniqid() . ".$ext";
-
         // DB登録する各値を取得
-        $path    = "images/" . $file->storeAs('', $filename);
         $title   = $request->title;
         $price   = $request->price;
         $comment = $request->comment;
+
+        // ファイル登録処理
+        $path = $this->registerimage($file);
 
         // 登録
         $request->user()->images()->create([
@@ -101,15 +97,8 @@ class ImagesController extends Controller
             // アップロードされたファイルを取得
             $file  = $request->file('photo');
 
-            // アップロードされたファイルの拡張子を取得
-            $ext = $request->file('photo')->getClientOriginalExtension();
-
-            // ランダム文字列でファイル名を作成
-            $filename = uniqid() . ".$ext";
-
-            // ファイル登録
-            $path        = "images/" . $file->storeAs('', $filename);
-            $image->path = $path;
+            // ファイル登録処理
+            $image->path = $this->registerimage($file);
         }
         $message = '登録が完了しました。';
         $image->save();
@@ -134,5 +123,26 @@ class ImagesController extends Controller
             $message = 'ファイルを削除しました。';
         }
         return redirect('/')->with('flash_message', $message);
+    }
+
+    // 画像登録処理
+    private function registerimage($file)
+    {
+        $filename = $this->getfilename($file);
+        $path     = "images/" . $file->storeAs('', $filename);
+
+        return $path;
+    }
+
+    // ファイル名作成
+    private function getfilename($file)
+    {
+            // アップロードされたファイルの拡張子を取得
+            $ext = $file->getClientOriginalExtension();
+
+            // ランダム文字列でファイル名を作成
+            $filename = uniqid() . ".$ext";
+
+            return $filename;
     }
 }
