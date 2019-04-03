@@ -102,7 +102,7 @@ class ImagesController extends Controller
 
         $message = '登録が完了しました。';
         $image->save();
-        return back()->with('flash_message', $message);
+        return redirect()->route('image.show',['id' => $image])->with('flash_message', $message);
     }
 
     // 画像情報削除
