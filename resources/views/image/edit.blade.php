@@ -1,12 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="text-center">
-        <h1>画像情報変更</h1>
-    </div>
-
     <div class="row">
-        <div class="col-sm-6 offset-sm-3">
+        <div class="col-sm-4">
+            @include('layouts.menu')
+        </div>
+        <div class="col-sm-8">
+            <div class="text-center">
+                <h1>画像情報変更</h1>
+            </div>
+
             <div class="text-center">
                 <img src="{{ asset($image->path) }}" width=100>
             </div>
@@ -26,6 +29,7 @@
                 </div>
                 {!! Form::submit('登録', ['class' => 'btn btn-primary mb-4', 'onclick' => 'return conf_message();']) !!}
             {!! Form::close() !!}
+        </div>
         </div>
     </div>
 @endsection
