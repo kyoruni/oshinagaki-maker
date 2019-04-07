@@ -1,13 +1,9 @@
-<ul class="list-unstyled">
+<div class="card-deck">
     @foreach ($images as $image)
-        <li class="media mb-3">
-            <div class="media-body">
-                    <a href="{!! route('image.show', $image->id) !!}"><img src="{{ asset($image->path) }}" width=100></a>
-                    <p>タイトル：{!! $image->title !!}</p>
-                    <p>価格：{!! $image->price !!}</p>
-                    <p>コメント：{!! $image->comment !!}</p>
-            </div>
-        </li>
+        <div class="card">
+            <div class="card-header">{!! $image->title !!}</div>
+            <a href="{!! route('image.show', $image->id) !!}"><img src="{{ asset($image->path) }}" class="card-img-top" alt="{!! $image->title !!}"></a>
+        </div>
     @endforeach
-</ul>
+</div>
 {{ $images->render('pagination::bootstrap-4') }}
