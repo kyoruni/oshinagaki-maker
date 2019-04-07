@@ -86,18 +86,18 @@ class ImagesController extends Controller
             // 登録されているファイルを削除するため、対象のファイルパスを取得
             $filepath = public_path() . '/' . $image->path;
 
+            // アップロードされたファイルを取得
+            $file  = $request->file('photo');
+
+            // ファイル登録処理
+            $image->path = $this->registerimage($file);
+
             // 削除対象のファイルが存在したら削除
             if (\Auth::id() === $image->user_id) {
                 if (\File::exists($filepath)){
                     \File::delete($filepath);
                 }
             }
-
-            // アップロードされたファイルを取得
-            $file  = $request->file('photo');
-
-            // ファイル登録処理
-            $image->path = $this->registerimage($file);
         }
 
         $message = '登録が完了しました。';
@@ -141,12 +141,12 @@ class ImagesController extends Controller
     // ファイル名作成
     private function getfilename($file)
     {
-            // アップロードされたファイルの拡張子を取得
-            $ext = $file->getClientOriginalExtension();
+        // アップロードされたファイルの拡張子を取得
+        $ext = $file->getClientOriginalExtension();
 
-            // ランダム文字列でファイル名を作成
-            $filename = uniqid() . ".$ext";
+        // ランダム文字列でファイル名を作成
+        $filename = uniqid() . ".$ext";
 
-            return $filename;
+        return $filename;
     }
 }

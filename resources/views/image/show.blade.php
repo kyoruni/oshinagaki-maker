@@ -25,18 +25,14 @@
       image.src = "{{ asset($image->path) }}";
 
       // 画像(image)の読み込みが完了したら、描画処理に入る
-      // onload 読み込み完了してから描画しないと、最初の一回目で表示に失敗する可能性がある
       image.onload = function(){
-        // コンテキストオブジェクトを取得
-        // コンテキストオブジェクト・・・canvasに描画するためのAPIを持ったオブジェクト
         var ctx = document.getElementById("cv1").getContext("2d");
 
         // 読み込んだ画像を表示する
         // 引数4個：元画像を縮小して表示 image, x, y, width, height
         ctx.drawImage(image,0,0,500,500);
 
-        // タイトル
-        ctx.textAlign = "left";
+        ctx.textAlign    = "left";
         ctx.textBaseline = "top";
         ctx.fillStyle    = "blue";
         ctx.font         = "30px 'ＭＳ ゴシック'";
