@@ -6,7 +6,7 @@
             <div class="col-sm-4">
                 @include('layouts.menu')
             </div>
-            <div class="col-8">
+            <div class="col-sm-8">
                 @if (count($images) > 0)
                     @include('image.images', ['images' => $images])
                 @endif
