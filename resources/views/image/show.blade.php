@@ -8,6 +8,9 @@
             <div class="col-sm-8">
                 <div class="text-center">
                     <canvas id="cv1" width="500" height="500" style="border:1px solid #000;"></canvas>
+                    <script>
+                        window.onload = draw_image( "{{ asset($image->path) }}", "{!! $image->title !!}", "{!! $image->comment !!}", "{!! $image->price !!}");
+                    </script>
 
                         <p>タイトル：{!! $image->title !!}</p>
                         <p>価格：{!! $image->price !!}</p>
@@ -23,7 +26,46 @@
                     </div>
                 </div>
             </div>
+<script>
+function draw_image(path, title, comment, price)
+{
+     if ( window.confirm("登録してもよろしいですか？")){
+        return true; }
+    else{
+        return false; }
 
+      var image = new Image();
+      image.src = path;
+
+      // 画像(image)の読み込みが完了したら、描画処理に入る
+      image.onload = function(){
+        var ctx = document.getElementById("cv1").getContext("2d");
+
+        // 読み込んだ画像を表示する
+        // 引数4個：元画像を縮小して表示 image, x, y, width, height
+        ctx.drawImage(image,0,0,500,500);
+
+        ctx.textAlign    = "left";
+        ctx.textBaseline = "top";
+        ctx.fillStyle    = "blue";
+        ctx.font         = "30px 'ＭＳ ゴシック'";
+
+        // タイトルのテキストを描画 text, x, y
+        ctx.fillText(title, 10, 10);
+
+        // コメントのテキストを描画
+        ctx.textAlign = "right";
+        ctx.fillText(comment, 480, 450);
+
+        // 価格のテキストを描画
+        ctx.font = "24px 'ＭＳ ゴシック'";
+        ctx.fillText(price, 480, 410);
+      };
+ //     draw();
+}
+
+</script>
+<!--
     <script>
       var image = new Image();
       image.src = "{{ asset($image->path) }}";
@@ -54,7 +96,7 @@
       };
       draw();
     </script>
-<!--
+
     <div class="text-center">
         <canvas id="cv1" width="500" height="500" style="border:1px solid #000;"></canvas>
     </div>
