@@ -8,10 +8,14 @@
         <div class="col-sm-8">
             <div class="text-center">
                 <h1>画像情報変更</h1>
-            </div>
-
-            <div class="text-center">
-                <img src="{{ asset($image->path) }}" width=100>
+ 
+<!--                <img src="{{ asset($image->path) }}" width=300 height=300> -->
+<!--                <img src="{{ asset($image->path) }}" width=300 height=300> -->
+                <canvas id="cv1" width="300" height="300" style="border:1px solid #000;"></canvas>
+                <canvas id="cv2" width="300" height="300" style="border:1px solid #000;"></canvas>
+                    <script>
+                        window.onload = draw_image( "cv1", "original", 300, 300, "{{ asset($image->path) }}", "", "", "");
+                    </script>
             </div>
             {!! Form::model($image, ['route' => ['image.update', $image->id], 'method' => 'put', 'files' => true]) !!}
                 <div class="form-group">
@@ -28,6 +32,7 @@
                     {!! Form::text ('comment', old('comment'), ['class' => 'form-control']) !!}
                 </div>
                 {!! Form::submit('登録', ['class' => 'btn btn-primary mb-4', 'onclick' => 'return conf_message();']) !!}
+                <input type="button" value="preview" class="btn btn-info mb-4" onclick="draw_image('cv2', 'preview', 300, 300, '{{ asset($image->path) }}', '{!! $image->title !!}', '{!! $image->comment !!}', '{!! $image->price !!}');">
             {!! Form::close() !!}
         </div>
         </div>

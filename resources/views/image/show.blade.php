@@ -9,7 +9,7 @@
                 <div class="text-center">
                     <canvas id="cv1" width="500" height="500" style="border:1px solid #000;"></canvas>
                     <script>
-                        window.onload = draw_image( "{{ asset($image->path) }}", "{!! $image->title !!}", "{!! $image->comment !!}", "{!! $image->price !!}");
+                        window.onload = draw_image( "cv1", "preview", 500, 500, "{{ asset($image->path) }}", "{!! $image->title !!}", "{!! $image->comment !!}", "{!! $image->price !!}");
                     </script>
 
                         <p>タイトル：{!! $image->title !!}</p>
