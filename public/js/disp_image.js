@@ -1,4 +1,4 @@
-function draw_image(canvas, mode, width, height, path)
+function draw_image(canvas, mode, width, height, path, title, price, comment)
 {
     var image = new Image();
     image.src = path;
@@ -12,7 +12,11 @@ function draw_image(canvas, mode, width, height, path)
 
         // プレビューボタン押下時、入力されたテキストを取得
         if (mode == 'preview'){
-        text = get_text();
+           text = get_text();
+        }else if(mode == 'show'){
+            text.title   = title;
+            text.price   = price;
+            text.comment = comment;
         }
 
         var ctx  = document.getElementById(canvas).getContext("2d");
@@ -35,7 +39,7 @@ function draw_image(canvas, mode, width, height, path)
         ctx.fillText(text.comment, width-20, height-50);
 
         // 価格のテキストを描画
-        if (mode == "preview"){
+        if (mode == "preview" || mode == "show"){
             ctx.font = "24px 'ＭＳ ゴシック'";
             ctx.fillText("¥" + text.price, width-20, height-90);
         }

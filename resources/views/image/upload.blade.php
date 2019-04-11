@@ -11,9 +11,17 @@
                 </div>
                 {!! Form::model($image, ['route' => ['image.store', $image->id], 'method' => 'post', 'files' => true]) !!}
                     <div class="form-group">
-                        {!! Form::label('photo', '画像') !!}
-                        {!! Form::file('photo', ['class' => 'form-control']) !!}
-
+                        <div class="input-group">
+                            <label class="input-group-btn">
+                                <span class="btn btn-primary rounded-0">
+                                    画像を選択
+                                    <input name="photo" type="file" id="photo" style="display:none">
+                                </span>
+                            </label>
+                            <input type="text" class="form-control" readonly="">
+                        </div>
+                    </div>
+                    <div class="form-group">
                         {!! Form::label('title', 'タイトル') !!}
                         {!! Form::text ('title', old('title'), ['class' => 'form-control']) !!}
 
