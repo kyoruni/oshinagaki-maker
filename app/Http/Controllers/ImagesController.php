@@ -17,7 +17,7 @@ class ImagesController extends Controller
 
         if (\Auth::check()) {
             $user = \Auth::user();
-            $images = $user->images()->orderBy('created_at', 'desc')->paginate(8);
+            $images = $user->images()->orderBy('created_at', 'desc')->paginate(4);
 
             $data = ['images' => $images,];
         }
