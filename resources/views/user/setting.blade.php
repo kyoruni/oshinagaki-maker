@@ -16,7 +16,9 @@
                     {!! Form::label('email', '(半角)', ['class' => 'text-muted small']) !!}
                     {!! Form::email('email', old('email'), ['class' => 'form-control']) !!}
                 </div>
-                {!! Form::submit('登録', ['class' => 'btn btn-primary float-right mb-4', 'onclick' => 'return conf_message();']) !!}
+                <div class="col-sm-6 float-right" style="margin-right:-15px">
+                    {!! Form::submit('登録', ['class' => 'btn btn-primary float-right btn-block', 'onclick' => 'return conf_message();']) !!}
+                </div>
             {!! Form::close() !!}
         </div>
     </div>

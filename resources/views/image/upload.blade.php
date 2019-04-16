@@ -10,17 +10,8 @@
                     <h1>画像登録</h1>
                 </div>
                 {!! Form::model($image, ['route' => ['image.store', $image->id], 'method' => 'post', 'files' => true]) !!}
-                    <div class="form-group">
-                        <div class="input-group">
-                            <label class="input-group-btn">
-                                <span class="btn btn-primary rounded-0">
-                                    画像を選択
-                                    <input name="photo" type="file" id="photo" style="display:none">
-                                </span>
-                            </label>
-                            <input type="text" class="form-control" readonly="">
-                        </div>
-                    </div>
+                    @include('image.form')
+
                     <div class="form-group">
                         {!! Form::label('title', 'タイトル') !!}
                         {!! Form::text ('title', old('title'), ['class' => 'form-control']) !!}
@@ -31,7 +22,9 @@
                         {!! Form::label('comment', 'コメント') !!}
                         {!! Form::text ('comment', old('comment'), ['class' => 'form-control']) !!}
                     </div>
-                    {!! Form::submit('登録', ['class' => 'btn btn-primary mb-4', 'onclick' => 'return conf_message();']) !!}
+                    <div class="col-sm-6 float-right" style="margin-right:-15px">
+                        {!! Form::submit('登録', ['class' => 'btn btn-primary btn-block', 'onclick' => 'return conf_message();']) !!}
+                    </div>
                 {!! Form::close() !!}
             </div>
         </div>
