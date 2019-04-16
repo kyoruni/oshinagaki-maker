@@ -35,4 +35,6 @@ Route::group(['middleware' => ['auth']], function () {
     // 画像機能
     Route::resource('image', 'ImagesController', ['only' => ['index', 'show', 'store', 'edit', 'update', 'destroy']]);
     Route::get('upload', 'ImagesController@create')->name('image.upload');
+
+    Route::get('/about', 'AboutController@index')->name('about');
 });
