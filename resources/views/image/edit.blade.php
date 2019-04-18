@@ -34,7 +34,7 @@
                         {!! Form::submit('登録', ['class' => 'btn btn-primary btn-block', 'onclick' => 'return conf_message();']) !!}
                     </div>
                     <div class="col-sm-6" style="margin-right:-15px; margin-left:-15px;">
-                        <input type="button" value="preview" class="btn btn-info btn-block" onclick="draw_image('cv2', 'preview', 300, 300, '{{ asset($image->path) }}', '', '', '');">
+                        <input type="button" value="プレビュー" class="btn btn-info btn-block" onclick="draw_image('cv2', 'preview', 300, 300, '{{ asset($image->path) }}', '', '', '');">
                     </div>
                 </div>
             {!! Form::close() !!}
